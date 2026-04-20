@@ -1630,7 +1630,7 @@
       <div class="capture-form" data-observe id="capture-form-wrap">
         <form
           id="email-form"
-          action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID"
+          action="https://formspree.io/f/mqewdkww"
           method="POST"
         >
           <div class="form-row">
@@ -1770,11 +1770,18 @@
           body: new FormData(form),
           headers: { 'Accept': 'application/json' }
         });
-        form.style.display = 'none';
-        successBox.classList.add('shown');
+        if (res.ok) {
+          form.style.display = 'none';
+          successBox.classList.add('shown');
+        } else {
+          btn.textContent = 'Send It →';
+          btn.disabled = false;
+          btn.style.background = 'var(--red)';
+          btn.textContent = 'Something went wrong — try again';
+        }
       } catch (err) {
-        form.style.display = 'none';
-        successBox.classList.add('shown');
+        btn.textContent = 'No connection — try again';
+        btn.disabled = false;
       }
     });
 

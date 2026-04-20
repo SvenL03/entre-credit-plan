@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EntreCredit Plan — The Credit Card Roadmap for Entrepreneurs</title>
+  <meta name="description" content="Dave Ramsey is right. For 71% of people. If you're in the other 29%, this is the credit card roadmap built for entrepreneurs who pay in full." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ============================================
+       TOKENS
+    ============================================ */
+    :root {
+      --black:       #0A0E0A;
+      --dark:        #111611;
+      --card-bg:     #161D16;
+      --border:      #1E2B1E;
+      --green:       #2ECC71;
+      --green-dark:  #1A7A45;
+      --green-dim:   rgba(46,204,113,0.12);
+      --gold:        #F1C40F;
+      --gold-dim:    rgba(241,196,15,0.15);
+      --red:         #E74C3C;
+      --red-dim:     rgba(231,76,60,0.08);
+      --text:        #EEF0E8;
+      --muted:       #6B7A6B;
+      --font-display: 'Barlow Condensed', sans-serif;
+      --font-body:    'Barlow', sans-serif;
+    }
+
+    /* ============================================
+       RESET + BASE
+    ============================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: var(--green); color: var(--black); }
+
+    /* ============================================
+       PROGRESS BAR
+    ============================================ */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0%;
+      background: var(--green);
+      z-index: 1000;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 12px var(--green);
+    }
+
+    /* ============================================
+       NAV
+    ============================================ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 5vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s, backdrop-filter 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(10,14,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 22px;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--green); }
+    .nav-cta {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--green);
+      border: none;
+      padding: 10px 22px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: #3de88a; transform: translateY(-1px); }
+
+    /* ============================================
+       HERO
+    ============================================ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 5vw 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.4;
+      animation: gridDrift 20s linear infinite;
+    }
+    @keyframes gridDrift {
+      0% { background-position: 0 0; }
+      100% { background-position: 60px 60px; }
+    }
+
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(46,204,113,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 20px;
+      position: relative;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.6s ease forwards 0.2s;
+    }
+
+    .hero-headline {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(52px, 8vw, 110px);
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      position: relative;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.7s ease forwards 0.4s;
+    }
+    .hero-headline .green { color: var(--green); }
+
+    .hero-sub {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(20px, 2.5vw, 26px);
+      color: var(--text);
+      max-width: 620px;
+      margin-bottom: 20px;
+      position: relative;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.7s ease forwards 0.55s;
+      line-height: 1.3;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-body {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 580px;
+      margin-bottom: 48px;
+      position: relative;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.7s ease forwards 0.65s;
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.7s ease forwards 0.8s;
+    }
+
+    .btn-primary {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--green);
+      border: none;
+      padding: 16px 36px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      background: #3de88a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(46,204,113,0.3);
+    }
+
+    .btn-secondary {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+      background: transparent;
+      border: 1px solid var(--border);
+      padding: 16px 36px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-secondary:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 1.2s;
+    }
+    .scroll-hint span {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .scroll-arrow {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--green), transparent);
+      animation: scrollPulse 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
+      50% { opacity: 1; transform: scaleY(1); }
+    }
+
+    /* ============================================
+       SECTION WRAPPER
+    ============================================ */
+    section {
+      padding: 100px 5vw;
+      position: relative;
+    }
+
+    .section-label {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(36px, 5vw, 64px);
+      text-transform: uppercase;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      margin-bottom: 24px;
+    }
+
+    .section-sub {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+
+    /* ============================================
+       STATS SECTION
+    ============================================ */
+    #stats {
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .stat-card.visible { opacity: 1; transform: translateY(0); }
+    .stat-card:nth-child(2) { transition-delay: 0.15s; }
+    .stat-card:nth-child(3) { transition-delay: 0.3s; }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--green);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.8s ease 0.3s;
+    }
+    .stat-card.visible::before { transform: scaleX(1); }
+    .stat-card.gold-accent::before { background: var(--gold); }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(60px, 8vw, 100px);
+      line-height: 1;
+      color: var(--green);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .stat-card.gold-accent .stat-number { color: var(--gold); }
+
+    .stat-label {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .stat-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ============================================
+       TWO AMERICAS / SPLIT
+    ============================================ */
+    #split { overflow: hidden; }
+
+    .split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 48px;
+    }
+
+    .split-card {
+      padding: 48px 40px;
+      position: relative;
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .split-card.right { transform: translateX(40px); }
+    .split-card.visible { opacity: 1; transform: translateX(0); }
+
+    .split-card.dave {
+      background: rgba(231, 76, 60, 0.06);
+      border: 1px solid rgba(231,76,60,0.2);
+    }
+    .split-card.you {
+      background: var(--green-dim);
+      border: 1px solid rgba(46,204,113,0.2);
+    }
+
+    .split-tag {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      display: inline-block;
+      margin-bottom: 24px;
+    }
+    .split-card.dave .split-tag { color: var(--red); border: 1px solid var(--red); }
+    .split-card.you .split-tag { color: var(--green); border: 1px solid var(--green); }
+
+    .split-pct {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 88px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+    .split-card.dave .split-pct { color: var(--red); }
+    .split-card.you .split-pct { color: var(--green); }
+
+    .split-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .split-list li {
+      font-size: 16px;
+      color: var(--text);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .split-list li::before {
+      content: '→';
+      color: var(--muted);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .split-verdict {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.05em;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .split-card.dave .split-verdict { color: var(--red); }
+    .split-card.you .split-verdict { color: var(--green); }
+
+    /* ============================================
+       DAVE'S 3 WARNINGS
+    ============================================ */
+    #warnings {
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+    }
+
+    .warnings-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 48px;
+    }
+
+    .warning-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .warning-card.visible { opacity: 1; transform: translateY(0); }
+    .warning-card:nth-child(2) { transition-delay: 0.12s; }
+    .warning-card:nth-child(3) { transition-delay: 0.24s; }
+
+    .warning-header {
+      padding: 24px 32px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .warning-num {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      color: var(--red);
+      border: 1px solid rgba(231,76,60,0.4);
+      padding: 3px 10px;
+      flex-shrink: 0;
+    }
+
+    .warning-title {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(22px, 3vw, 30px);
+      text-transform: uppercase;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .warning-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .warning-dave-col {
+      padding: 32px;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+    .warning-dave-col::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--red);
+    }
+
+    .warning-rebuttal-col {
+      padding: 32px;
+      position: relative;
+    }
+    .warning-rebuttal-col::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--green);
+    }
+
+    .warning-col-label {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .warning-dave-col .warning-col-label { color: var(--red); }
+    .warning-rebuttal-col .warning-col-label { color: var(--green); }
+
+    .warning-col-text {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .warnings-close {
+      text-align: center;
+      margin-top: 40px;
+      font-style: italic;
+      color: var(--gold);
+      font-size: 16px;
+      line-height: 1.5;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ============================================
+       THE FILTER
+    ============================================ */
+    #filter {
+      border-top: 1px solid var(--border);
+    }
+
+    .filter-questions {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 48px;
+    }
+
+    .filter-question {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      padding: 28px 32px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.2s;
+    }
+    .filter-question:hover { border-color: rgba(46,204,113,0.3); }
+    .filter-question.visible { opacity: 1; transform: translateX(0); }
+    .filter-question:nth-child(2) { transition-delay: 0.08s; }
+    .filter-question:nth-child(3) { transition-delay: 0.16s; }
+    .filter-question:nth-child(4) { transition-delay: 0.24s; }
+
+    .filter-num {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--green);
+      color: var(--black);
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .filter-text {
+      font-size: 18px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .filter-close {
+      text-align: center;
+      margin-top: 36px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: 0.03em;
+      color: var(--green);
+    }
+
+    /* ============================================
+       THE 2 FACTORS
+    ============================================ */
+    #factors {
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+    }
+
+    .factors-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 48px;
+    }
+
+    .factor-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .factor-card.visible { opacity: 1; transform: translateY(0); }
+    .factor-card:nth-child(2) { transition-delay: 0.15s; }
+
+    .factor-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .factor-card.green-accent::before { background: var(--green); }
+    .factor-card.gold-accent::before { background: var(--gold); }
+
+    .factor-num {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 72px;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      opacity: 0.12;
+      position: absolute;
+      top: 32px; right: 32px;
+    }
+    .factor-card.green-accent .factor-num { color: var(--green); }
+    .factor-card.gold-accent .factor-num { color: var(--gold); }
+
+    .factor-title {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(32px, 4vw, 52px);
+      text-transform: uppercase;
+      line-height: 0.95;
+      margin-bottom: 8px;
+    }
+    .factor-card.green-accent .factor-title { color: var(--green); }
+    .factor-card.gold-accent .factor-title { color: var(--gold); }
+
+    .factor-subtitle {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .factor-body {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+
+    .factor-pullquote {
+      font-style: italic;
+      font-size: 18px;
+      color: var(--green);
+      line-height: 1.5;
+      border-left: 3px solid var(--green);
+      padding-left: 20px;
+      margin-bottom: 28px;
+    }
+
+    .factor-key {
+      padding: 16px 20px;
+      background: var(--green-dim);
+      border: 1px solid rgba(46,204,113,0.2);
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .factor-card.gold-accent .factor-key {
+      background: var(--gold-dim);
+      border-color: rgba(241,196,15,0.2);
+    }
+
+    .factor-key strong { color: var(--green); }
+    .factor-card.gold-accent .factor-key strong { color: var(--gold); }
+
+    /* ============================================
+       STARTER WALLET
+    ============================================ */
+    #roadmap {
+      background: var(--black);
+      border-top: 1px solid var(--border);
+    }
+
+    .wallet-cards {
+      margin-top: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .wallet-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 36px 32px;
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.5s ease, transform 0.5s ease, background 0.2s;
+      position: relative;
+    }
+    .wallet-card:hover { background: #1a221a; }
+    .wallet-card.visible { opacity: 1; transform: translateX(0); }
+    .wallet-card:nth-child(2) { transition-delay: 0.1s; }
+    .wallet-card:nth-child(3) { transition-delay: 0.2s; }
+
+    .wallet-step {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--green);
+      color: var(--black);
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 4px;
+    }
+
+    .wallet-content { flex: 1; }
+
+    .wallet-tag {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green);
+      border: 1px solid rgba(46,204,113,0.3);
+      padding: 3px 10px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .wallet-card-name {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(24px, 3vw, 34px);
+      color: var(--text);
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .wallet-why {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+
+    .wallet-bonus {
+      background: rgba(241,196,15,0.08);
+      border: 1px solid rgba(241,196,15,0.25);
+      padding: 16px 20px;
+      margin-bottom: 20px;
+    }
+
+    .wallet-bonus-label {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .wallet-bonus-text {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .wallet-bonus-text strong { color: var(--gold); }
+
+    .wallet-link {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--green);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(46,204,113,0.3);
+      padding-bottom: 2px;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-block;
+    }
+    .wallet-link:hover {
+      color: #3de88a;
+      border-color: #3de88a;
+    }
+
+    .roadmap-blur {
+      margin-top: 2px;
+      position: relative;
+    }
+    .roadmap-blur .wallet-card {
+      filter: blur(4px);
+      user-select: none;
+      pointer-events: none;
+    }
+    .blur-cta {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to bottom, transparent, rgba(10,14,10,0.88));
+      gap: 12px;
+      padding: 24px;
+    }
+    .blur-cta-title {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 22px;
+      letter-spacing: 0.05em;
+      color: var(--text);
+      text-align: center;
+    }
+    .blur-cta-sub {
+      font-size: 15px;
+      color: var(--muted);
+      text-align: center;
+      max-width: 400px;
+    }
+
+    /* ============================================
+       THE MATH
+    ============================================ */
+    #math {
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+    }
+
+    .math-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 48px;
+    }
+
+    .math-stat {
+      background: var(--card-bg);
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .math-stat.visible { opacity: 1; transform: translateY(0); }
+    .math-stat:nth-child(2) { transition-delay: 0.15s; }
+    .math-stat:nth-child(3) { transition-delay: 0.3s; }
+
+    .math-stat::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--green);
+    }
+
+    .math-number {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(56px, 7vw, 88px);
+      line-height: 1;
+      color: var(--green);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .math-stat:nth-child(2) .math-number { color: var(--gold); }
+    .math-stat:nth-child(2)::before { background: var(--gold); }
+
+    .math-label {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .math-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .math-warning {
+      margin-top: 24px;
+      padding: 28px 32px;
+      background: rgba(231,76,60,0.06);
+      border: 1px solid rgba(231,76,60,0.2);
+      border-left: 4px solid var(--red);
+      font-size: 16px;
+      color: var(--text);
+      line-height: 1.6;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .math-warning.visible { opacity: 1; transform: translateY(0); }
+
+    /* ============================================
+       PHILOSOPHY QUOTES
+    ============================================ */
+    #philosophy {
+      border-top: 1px solid var(--border);
+    }
+
+    .quotes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 48px;
+    }
+
+    .quote-card {
+      background: var(--card-bg);
+      padding: 40px 32px;
+      border: 1px solid var(--border);
+      position: relative;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.2s;
+    }
+    .quote-card:hover { border-color: var(--green); }
+    .quote-card.visible { opacity: 1; transform: translateY(0); }
+    .quote-card:nth-child(2) { transition-delay: 0.15s; }
+    .quote-card:nth-child(3) { transition-delay: 0.30s; }
+
+    .quote-mark {
+      font-family: 'Georgia', serif;
+      font-size: 80px;
+      line-height: 0.5;
+      color: var(--green);
+      margin-bottom: 20px;
+      display: block;
+      opacity: 0.5;
+    }
+
+    .quote-text {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text);
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .quote-attr {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green);
+    }
+    .quote-attr span {
+      display: block;
+      font-weight: 400;
+      color: var(--muted);
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    .sources-line {
+      margin-top: 40px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ============================================
+       EMAIL CAPTURE
+    ============================================ */
+    #capture {
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 120px 5vw;
+    }
+
+    .capture-inner {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .capture-eyebrow {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+    .capture-eyebrow.visible { opacity: 1; transform: translateY(0); }
+
+    .capture-title {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(42px, 6vw, 76px);
+      text-transform: uppercase;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s 0.1s, transform 0.6s 0.1s;
+    }
+    .capture-title.visible { opacity: 1; transform: translateY(0); }
+
+    .capture-sub {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s 0.2s, transform 0.6s 0.2s;
+      text-align: left;
+    }
+    .capture-sub.visible { opacity: 1; transform: translateY(0); }
+    .capture-sub strong { color: var(--text); }
+
+    .capture-form {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s 0.3s, transform 0.6s 0.3s;
+    }
+    .capture-form.visible { opacity: 1; transform: translateY(0); }
+
+    .form-row {
+      display: flex;
+      gap: 0;
+      margin-bottom: 12px;
+    }
+
+    .form-input {
+      flex: 1;
+      padding: 18px 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-right: none;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus { border-color: var(--green); }
+    .form-input::placeholder { color: var(--muted); }
+
+    .form-submit {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--green);
+      border: none;
+      padding: 18px 32px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+    .form-submit:hover { background: #3de88a; transform: translateY(-1px); }
+
+    @keyframes formPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(46,204,113,0); }
+      50% { box-shadow: 0 0 0 8px rgba(46,204,113,0.15); }
+    }
+    .capture-form.pulsed .form-input {
+      animation: formPulse 1.5s ease-out 0.4s;
+    }
+
+    .form-disclaimer {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .form-disclaimer svg { flex-shrink: 0; }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 32px;
+      background: var(--green-dim);
+      border: 1px solid rgba(46,204,113,0.3);
+    }
+    .form-success.shown { display: block; }
+    .form-success-title {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 32px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 8px;
+    }
+    .form-success-sub { font-size: 15px; color: var(--muted); }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    footer {
+      padding: 40px 5vw;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 18px;
+      letter-spacing: 0.04em;
+      color: var(--text);
+    }
+    .footer-logo span { color: var(--green); }
+
+    .footer-text {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .footer-text a { color: var(--muted); text-decoration: none; }
+    .footer-text a:hover { color: var(--green); }
+
+    /* ============================================
+       ANIMATIONS
+    ============================================ */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================
+       RESPONSIVE
+    ============================================ */
+    @media (max-width: 900px) {
+      .stats-grid,
+      .quotes-grid,
+      .math-grid,
+      .factors-grid { grid-template-columns: 1fr; gap: 2px; }
+      .split-grid { grid-template-columns: 1fr; }
+      .split-card.right { transform: translateX(0); transform: translateY(40px); }
+      .form-row { flex-direction: column; }
+      .form-input { border-right: 1px solid var(--border); border-bottom: none; }
+      .form-submit { width: 100%; }
+      .warning-body { grid-template-columns: 1fr; }
+      .warning-dave-col { border-right: none; border-bottom: 1px solid var(--border); }
+    }
+
+    @media (max-width: 600px) {
+      .hero-headline { font-size: 56px; }
+      .wallet-card { flex-direction: column; gap: 16px; }
+      .split-pct { font-size: 64px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="progress-bar"></div>
+
+  <nav id="nav">
+    <a href="#" class="nav-logo">entre<span>credit</span>plan</a>
+    <a href="#capture" class="nav-cta">Get the Playbook</a>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section id="hero">
+    <p class="hero-eyebrow">The Credit Card Roadmap for Entrepreneurs</p>
+    <h1 class="hero-headline">
+      Dave Ramsey<br>
+      <span class="green">is right.</span>
+    </h1>
+    <p class="hero-sub">For 71% of people. If you're in the other 29%, this changes everything.</p>
+    <p class="hero-body">
+      Most credit card advice is either "avoid them completely" or "hack every bonus." This is neither. This is the disciplined player's roadmap — built for entrepreneurs who have a budget, pay in full, and want to stop leaving money on the table.
+    </p>
+    <div class="hero-actions">
+      <a href="#capture" class="btn-primary">Get the Free Playbook →</a>
+      <a href="#roadmap" class="btn-secondary">See the Roadmap</a>
+    </div>
+
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STATS
+  ============================================================ -->
+  <section id="stats">
+    <div class="stats-grid">
+      <div class="stat-card" data-observe>
+        <div class="stat-number" data-count="29" data-suffix="%">0%</div>
+        <div class="stat-label">Have a Real Budget</div>
+        <div class="stat-desc">The only Americans this roadmap is built for. Per a 2025 Advance America survey.</div>
+      </div>
+      <div class="stat-card gold-accent" data-observe>
+        <div class="stat-number" data-count="1200" data-prefix="$">$0</div>
+        <div class="stat-label">Left on the Table / Year</div>
+        <div class="stat-desc">What the average household loses by using a debit card instead of the right credit cards on $40K in annual spend.</div>
+      </div>
+      <div class="stat-card" data-observe>
+        <div class="stat-number">$0</div>
+        <div class="stat-label">Interest Ever Paid</div>
+        <div class="stat-desc">What disciplined players pay the banks. The rewards flow one direction when you play it right.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       THE SPLIT — TWO AMERICAS
+  ============================================================ -->
+  <section id="split">
+    <p class="section-label">The Split</p>
+    <h2 class="section-title">Which America are you in?</h2>
+
+    <div class="split-grid">
+      <div class="split-card dave left" data-observe>
+        <div class="split-tag">71% — Dave's America</div>
+        <div class="split-pct">71%</div>
+        <ul class="split-list">
+          <li>No monthly budget</li>
+          <li>No system for tracking spend</li>
+          <li>Cards feel like free money</li>
+          <li>20%+ APR compounds fast</li>
+          <li>One bad month = debt spiral</li>
+        </ul>
+        <div class="split-verdict">Dave is 100% right. This isn't for you.</div>
+      </div>
+      <div class="split-card you right" data-observe>
+        <div class="split-tag">29% — Your America</div>
+        <div class="split-pct">29%</div>
+        <ul class="split-list">
+          <li>Real monthly budget, by category</li>
+          <li>Pays in full every month</li>
+          <li>Sees cards as a tool, not a crutch</li>
+          <li>Auto-pay is already set up</li>
+          <li>Knows exactly what they spend</li>
+        </ul>
+        <div class="split-verdict">For you? Cards print money.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       DAVE'S 3 WARNINGS
+  ============================================================ -->
+  <section id="warnings">
+    <p class="section-label">Dave's Case</p>
+    <h2 class="section-title">His 3 biggest warnings.<br>Stated fairly.</h2>
+    <p class="section-sub">He's helped millions of people. His arguments deserve the strongest version of themselves.</p>
+
+    <div class="warnings-list">
+
+      <div class="warning-card" data-observe>
+        <div class="warning-header">
+          <span class="warning-num">WARNING 01</span>
+          <div class="warning-title">"You will overspend."</div>
+        </div>
+        <div class="warning-body">
+          <div class="warning-dave-col">
+            <div class="warning-col-label">Dave's Case</div>
+            <p class="warning-col-text">Paying with plastic doesn't hurt the way handing over cash does. Your brain doesn't register the loss the same way. Studies back this up — people consistently spend more with cards than with cash. For the 71% with no budget? He's completely right.</p>
+          </div>
+          <div class="warning-rebuttal-col">
+            <div class="warning-col-label">For the 29%</div>
+            <p class="warning-col-text">If you have a budget, swiping $400 on groceries feels exactly like handing over $400 cash — because you already know that money is gone. The problem was never the card. It was the absence of a system.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="warning-card" data-observe>
+        <div class="warning-header">
+          <span class="warning-num">WARNING 02</span>
+          <div class="warning-title">"High interest will trap you."</div>
+        </div>
+        <div class="warning-body">
+          <div class="warning-dave-col">
+            <div class="warning-col-label">Dave's Case</div>
+            <p class="warning-col-text">Credit card APRs run 20–22% right now. It starts with one tight month, one emergency. The balance creeps up. Interest compounds. Suddenly you're paying interest on interest and the hole gets deeper every month. This is real and it destroys people financially.</p>
+          </div>
+          <div class="warning-rebuttal-col">
+            <div class="warning-col-label">For the 29%</div>
+            <p class="warning-col-text">The interest rate is completely irrelevant if you never carry a balance. Auto-pay, full balance, every month. The APR becomes a number that literally never touches you. It's like warning someone about drunk driving when they don't drink.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="warning-card" data-observe>
+        <div class="warning-header">
+          <span class="warning-num">WARNING 03</span>
+          <div class="warning-title">"You don't need a credit score — and rewards aren't worth it."</div>
+        </div>
+        <div class="warning-body">
+          <div class="warning-dave-col">
+            <div class="warning-col-label">Dave's Case</div>
+            <p class="warning-col-text">On scores — you can get a mortgage through manual underwriting without a credit score. Technically true. On rewards — his team studied 10,167 millionaires. Zero said they got wealthy from airline miles. Also true.</p>
+          </div>
+          <div class="warning-rebuttal-col">
+            <div class="warning-col-label">For the 29%</div>
+            <p class="warning-col-text">"Technically possible" is doing a lot of heavy lifting. No score means invisible — and invisible is expensive. Worse rates, fewer lenders, higher PMI, harder apartment approvals. On rewards: nobody said you get rich from miles. But $1,200/year on spend you're already making, over 10 years, is $12,000. That's not wealth. That's just not leaving free money on the table.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="warnings-close">"All three warnings are real. All three collapse if you have a budget and the discipline to stick to it."</p>
+  </section>
+
+  <!-- ============================================================
+       THE FILTER
+  ============================================================ -->
+  <section id="filter">
+    <p class="section-label">The Filter</p>
+    <h2 class="section-title">4 questions.<br>Be honest.</h2>
+    <p class="section-sub" style="margin-bottom:0;">One "no" and Dave is genuinely the right call for you. This is only built for the disciplined minority.</p>
+
+    <div class="filter-questions">
+      <div class="filter-question" data-observe>
+        <div class="filter-num">1</div>
+        <p class="filter-text">Do you have an actual monthly budget? Not a vague sense of your spending — real numbers, by category, every month.</p>
+      </div>
+      <div class="filter-question" data-observe>
+        <div class="filter-num">2</div>
+        <p class="filter-text">Do you stick to it most months? In practice, not just in theory.</p>
+      </div>
+      <div class="filter-question" data-observe>
+        <div class="filter-num">3</div>
+        <p class="filter-text">Could you pay off any credit card balance in full today?</p>
+      </div>
+      <div class="filter-question" data-observe>
+        <div class="filter-num">4</div>
+        <p class="filter-text">Are you willing to spend one hour a month managing your cards?</p>
+      </div>
+    </div>
+
+    <p class="filter-close">Four yeses? You're in the 29%. Keep reading.</p>
+  </section>
+
+  <!-- ============================================================
+       THE 2 FACTORS
+  ============================================================ -->
+  <section id="factors">
+    <p class="section-label">What Actually Matters</p>
+    <h2 class="section-title">5 FICO factors.<br>Forget 3 of them.</h2>
+    <p class="section-sub">For a disciplined player, only two drive your score. Everything else is noise.</p>
+
+    <div class="factors-grid">
+      <div class="factor-card green-accent" data-observe>
+        <div class="factor-num">01</div>
+        <div class="factor-title">Credit Age</div>
+        <div class="factor-subtitle">The only variable you can't hack.</div>
+        <p class="factor-body">How long your oldest account has been open. No shortcut. No app. No hustle. Just time passing — and it compounds automatically, forever, as long as the account stays open.</p>
+        <p class="factor-pullquote">"You can always decide not to use credit cards tomorrow. You cannot decide to have started 5 years ago."</p>
+        <div class="factor-key">Every year you wait is a year you can never recover. <strong>Open beginner cards early. Keep them open forever.</strong></div>
+      </div>
+      <div class="factor-card gold-accent" data-observe>
+        <div class="factor-num">02</div>
+        <div class="factor-title">On-Time Payments</div>
+        <div class="factor-subtitle">The one that can nuke you overnight.</div>
+        <p class="factor-body">One 30-day late payment can drop your score 80+ points. It stays on your report for 7 years.</p>
+        <p style="font-size:15px; color:var(--muted); line-height:1.65; margin-bottom:20px;"><strong style="color:var(--text);">The fix:</strong> Set up auto-pay for the full balance the day the card arrives. 60 seconds. Done forever.</p>
+        <div class="factor-key" style="background:var(--gold-dim); border-color:rgba(241,196,15,0.2);">This is the highest-ROI 60 seconds you'll spend on your finances this year. <strong>Auto-pay. Full balance. Day one.</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STARTER WALLET
+  ============================================================ -->
+  <section id="roadmap">
+    <p class="section-label">The Starter Wallet</p>
+    <h2 class="section-title">3 cards to start.<br>That's it.</h2>
+    <p class="section-sub">You don't need 20 cards. You need the right three. Here's the exact sequence — and why each one.</p>
+
+    <div class="wallet-cards">
+
+      <div class="wallet-card" data-observe>
+        <div class="wallet-step">1</div>
+        <div class="wallet-content">
+          <div class="wallet-tag">Start Here — Easy Approval</div>
+          <div class="wallet-card-name">Capital One Savor</div>
+          <p class="wallet-why">No annual fee. Easy approval odds — designed for people starting out. 3% back on dining, groceries, entertainment, and streaming. But here's the real reason: your credit age clock starts the day this card is approved.</p>
+          <div class="wallet-bonus">
+            <div class="wallet-bonus-label">Welcome Bonus</div>
+            <p class="wallet-bonus-text">Spend $500 in your first 3 months → get $200 cash back. That's a <strong>40% return</strong> on $500 of normal spend — groceries, gas, dinner. You don't change a single behavior. You just put it on this card instead of your debit card.</p>
+          </div>
+          <a href="https://i.capitalone.com/Jf2loXiz4" class="wallet-link" target="_blank" rel="noopener">Apply with referral link →</a>
+        </div>
+      </div>
+
+      <div class="wallet-card" data-observe>
+        <div class="wallet-step">2</div>
+        <div class="wallet-content">
+          <div class="wallet-tag">Year-One Multiplier</div>
+          <div class="wallet-card-name">Discover It</div>
+          <p class="wallet-why">No annual fee. Discover matches every dollar of cashback you earn in your entire first year — automatically. If you earn $150 in rewards, they hand you another $150 at the end of year one. Built-in doubling. Plus rotating 5% categories on gas, groceries, and restaurants by quarter.</p>
+          <a href="https://refer.discover.com/svenelliotl1!2fce6950e8!a" class="wallet-link" target="_blank" rel="noopener">Apply with referral link →</a>
+        </div>
+      </div>
+
+      <div class="wallet-card" data-observe>
+        <div class="wallet-step">3</div>
+        <div class="wallet-content">
+          <div class="wallet-tag">Prime Members Only</div>
+          <div class="wallet-card-name">Amazon Prime Visa</div>
+          <p class="wallet-why">If you have Amazon Prime, this is a no-brainer. 5% back on every dollar you spend on Amazon. No annual fee beyond your existing Prime membership. If you order from Amazon at all — this card pays for itself immediately.</p>
+          <a href="https://www.amazon.com/dp/BT00LN946S" class="wallet-link" target="_blank" rel="noopener">Apply directly through Amazon →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="roadmap-blur">
+      <div class="wallet-card" style="opacity:0.5; filter:blur(5px); pointer-events:none; margin-top:2px;">
+        <div class="wallet-step">4</div>
+        <div class="wallet-content">
+          <div class="wallet-tag">The Chase Ecosystem</div>
+          <div class="wallet-card-name">Chase Freedom Flex</div>
+          <p class="wallet-why">Start the Chase relationship early. The 5/24 clock is already running. This is where points start compounding across the entire ecosystem.</p>
+        </div>
+      </div>
+      <div class="wallet-card" style="opacity:0.25; filter:blur(7px); pointer-events:none; margin-top:2px;">
+        <div class="wallet-step">5</div>
+        <div class="wallet-content">
+          <div class="wallet-tag">The Capital One Duo</div>
+          <div class="wallet-card-name">Capital One Venture X</div>
+          <p class="wallet-why">The advanced tier. Transfer partners. Lounge access. The full strategy only unlocks when you're ready for this move.</p>
+        </div>
+      </div>
+      <div class="blur-cta">
+        <div class="blur-cta-title">Cards 4 through 10+ are in the full playbook.</div>
+        <p class="blur-cta-sub">The Chase ecosystem. The Capital One Duo. Business cards. The advanced sequence.</p>
+        <a href="#capture" class="btn-primary" style="font-size:15px; padding:14px 28px; margin-top:4px;">Get the Full Roadmap — Free →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       THE MATH
+  ============================================================ -->
+  <section id="math">
+    <p class="section-label">The Math</p>
+    <h2 class="section-title">What you're actually<br>leaving behind.</h2>
+
+    <div class="math-grid">
+      <div class="math-stat" data-observe>
+        <div class="math-number">$40K</div>
+        <div class="math-label">Normal Annual Spend</div>
+        <p class="math-desc">Groceries. Gas. Utilities. Subscriptions. Dining. Money going out the door no matter what.</p>
+      </div>
+      <div class="math-stat" data-observe>
+        <div class="math-number">~3%</div>
+        <div class="math-label">Effective Cashback</div>
+        <p class="math-desc">With the right cards optimized for your top spending categories.</p>
+      </div>
+      <div class="math-stat" data-observe>
+        <div class="math-number">$12K+</div>
+        <div class="math-label">Over 10 Years</div>
+        <p class="math-desc">Just for using a card instead of your debit card on purchases you were making anyway.</p>
+      </div>
+    </div>
+
+    <div class="math-warning" data-observe>
+      Not playing this game is not the safe choice. It's an expensive choice. You're paying roughly $1,200/year for the comfort of not engaging with a system designed to work for you.
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PHILOSOPHY QUOTES
+  ============================================================ -->
+  <section id="philosophy">
+    <p class="section-label">Built On</p>
+    <h2 class="section-title">Three minds.<br>One synthesis.</h2>
+    <p class="section-sub">This roadmap stands on the shoulders of the best credit card thinkers on YouTube.</p>
+
+    <div class="quotes-grid">
+      <div class="quote-card" data-observe>
+        <span class="quote-mark">"</span>
+        <p class="quote-text">Start Chase while you're under 5/24. Their points ecosystem is the most flexible and valuable for most people. Don't let the clock run out.</p>
+        <div class="quote-attr">
+          Daniel Braun
+          <span>Chase Ecosystem &amp; Optimal Card Order</span>
+        </div>
+      </div>
+      <div class="quote-card" data-observe>
+        <span class="quote-mark">"</span>
+        <p class="quote-text">Applying too fast is one of the easiest ways to sabotage your setup. Sequence matters more than the individual cards you pick.</p>
+        <div class="quote-attr">
+          Spencer Johnson
+          <span>The Forever Trio &amp; Card Roadmap Blueprint</span>
+        </div>
+      </div>
+      <div class="quote-card" data-observe>
+        <span class="quote-mark">"</span>
+        <p class="quote-text">Points lose value. Banks tighten rules. Every day you wait is a free trip you'll never take. The win is in actually using what you earn.</p>
+        <div class="quote-attr">
+          Anthony Venture
+          <span>Redemption Strategy &amp; Transfer Partners</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="sources-line">
+      29% budgeting stat: Advance America National Survey, April 2025 &nbsp;·&nbsp;
+      Credit score factors: myFICO.com &nbsp;·&nbsp;
+      Capital One Savor welcome bonus: verified April 2026
+    </p>
+  </section>
+
+  <!-- ============================================================
+       EMAIL CAPTURE
+  ============================================================ -->
+  <section id="capture">
+    <div class="capture-inner">
+      <p class="capture-eyebrow" data-observe>Free. No Spam. Just the Playbook.</p>
+      <h2 class="capture-title" data-observe>Get the<br><span style="color:var(--green)">Master Plan.</span></h2>
+      <p class="capture-sub" data-observe>
+        The full document. Every card. The complete sequence from starter to advanced — including the Capital One Duo, the Chase ecosystem, and the business card strategy.<br><br>
+        <strong>Your referral links. Your roadmap. Your play.</strong><br><br>
+        Plus: early access to the interactive card-matching tool when it launches.
+      </p>
+
+      <div class="capture-form" data-observe id="capture-form-wrap">
+        <form
+          id="email-form"
+          action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID"
+          method="POST"
+        >
+          <div class="form-row">
+            <input
+              class="form-input"
+              type="text"
+              name="first_name"
+              placeholder="First name"
+              required
+              autocomplete="given-name"
+            />
+            <input
+              class="form-input"
+              type="email"
+              name="email"
+              placeholder="Your email address"
+              required
+              autocomplete="email"
+            />
+            <button class="form-submit" type="submit">Send It →</button>
+          </div>
+          <p class="form-disclaimer">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            No spam. No upsell. Just the playbook. Unsubscribe anytime.
+          </p>
+        </form>
+
+        <div class="form-success" id="form-success">
+          <div class="form-success-title">You're in. 🎉</div>
+          <p class="form-success-sub">Check your inbox — the Master Plan is on its way.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer>
+    <div class="footer-logo">entre<span>credit</span>plan</div>
+    <div class="footer-text">
+      Built by <a href="https://svenloeffler.com">Sven Loeffler</a> &nbsp;·&nbsp;
+      Synthesized from Daniel Braun, Spencer Johnson &amp; Anthony Venture &nbsp;·&nbsp;
+      Not financial advice. &nbsp;·&nbsp;
+      29% stat: Advance America, 2025
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JS
+  ============================================================ -->
+  <script>
+    const bar = document.getElementById('progress-bar');
+    const nav = document.getElementById('nav');
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = (scrollTop / docHeight * 100) + '%';
+      nav.classList.toggle('scrolled', scrollTop > 60);
+    }, { passive: true });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          const numEl = entry.target.querySelector('[data-count]');
+          if (numEl && !numEl.dataset.counted) {
+            numEl.dataset.counted = '1';
+            animateCounter(numEl);
+          }
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('[data-observe]').forEach(el => observer.observe(el));
+
+    const childObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.querySelectorAll('[data-count]').forEach(numEl => {
+          if (!numEl.dataset.counted) {
+            numEl.dataset.counted = '1';
+            animateCounter(numEl);
+          }
+        });
+        childObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll(
+      '.stat-card, .wallet-card, .quote-card, .split-card, .warning-card, .filter-question, .factor-card, .math-stat, .math-warning'
+    ).forEach(el => childObserver.observe(el));
+
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.count);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      const duration = 1400;
+      const start = performance.now();
+
+      function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(eased * target);
+        el.textContent = prefix + current.toLocaleString() + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+
+    const captureFormWrap = document.getElementById('capture-form-wrap');
+    const captureObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setTimeout(() => captureFormWrap.classList.add('pulsed'), 500);
+          captureObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    captureObs.observe(captureFormWrap);
+
+    const form = document.getElementById('email-form');
+    const successBox = document.getElementById('form-success');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('.form-submit');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        form.style.display = 'none';
+        successBox.classList.add('shown');
+      } catch (err) {
+        form.style.display = 'none';
+        successBox.classList.add('shown');
+      }
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
